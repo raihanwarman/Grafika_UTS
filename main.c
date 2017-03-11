@@ -11,7 +11,6 @@ int main()
 
 	//create mobil player
 	spawnPlayer();
-	spaw
 
 
 	while(1)
@@ -21,7 +20,7 @@ int main()
 		//do game stuff=======================================================
 			//tangkap user-input
 			if(input)
-				moveObject(sesuaiInput);
+				moveObject(p,player); // move sesuai input
 
 
 			//jalanin objek
@@ -35,8 +34,8 @@ int main()
 			//gambar
 
 			//cek kolisi
-			if(checkCollision())
-				startCrash();
+            checkCollision();
+
 
 			//looping jalan
 			if(checkRoadOutOfBound())
