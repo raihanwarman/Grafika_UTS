@@ -39,6 +39,10 @@ void spawnRoad(); //inisialisasi jalan
 
 int checkRoadOutOfBound();//cek apakah jalan di luar layar
 
-void setPlayerImage();
+void setPlayerImage(); // create the image of player
 
-void setEnemyImage();
+void setEnemyImage(); // create the image of enemy
+
+void furnishPlayer(); // add wheel, window, etc. to player
+
+void furnishEnemy(); // add wheel, window, etc. to enemy
