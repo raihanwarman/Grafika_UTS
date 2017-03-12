@@ -2,14 +2,17 @@
 #include "glob_var_type.h"
 #include "framebuffer_init.h"
 
+#define ROAD_N 5
+#define ENEMY_N 10
 //objek dapat berupa peluru atau pesawat
-typedef struct{
-	titik position;	
-	int speed;  
+
+typedef struct {
+	titik position;
+	int speed;
 	int direction;
 	int status; 	//-1 inactive, 0 dead, 1 active, 99-50 rotating
 	titik* image;
-}kineticObject;
+} kineticObject;
 
 extern kineticObject player;
 extern kineticObject enemy[100];
@@ -28,7 +31,7 @@ void startCrash(kineticObject *o); //ubah status menjadi 99, speed menjadi 1/5, 
 
 void crashProcess(kineticObject *o); //putar image objek o
 
-void spawnPlayer(); //inisialisasi player 
+void spawnPlayer(); //inisialisasi player
 
 void spawnEnemy(); //insialisasi enemy
 
@@ -36,4 +39,6 @@ void spawnRoad(); //inisialisasi jalan
 
 int checkRoadOutOfBound();//cek apakah jalan di luar layar
 
+void setPlayerImage();
 
+void setEnemyImage();
