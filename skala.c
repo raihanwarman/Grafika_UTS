@@ -14,29 +14,19 @@ titik scaleDot(titik p0, titik p1, float s){
 		output.x = ((int)(((float)p0.x) + ((float)jarakx * s)));
 	}
 	if (p1.y < p0.y){
-		output.y = ((int)(((float)p0.y) - ((float)jaraky * s)));
+		output.y = ((int)(((float)p0.x) - ((float)jarakx * s)));
 	}
 	else {
-		output.y = ((int)(((float)p0.y) + ((float)jaraky * s)));
+		output.y = ((int)(((float)p0.x) + ((float)jarakx * s)));
 	}
-
+	
+	
+	
 	return output;
 }
 
 void scaleBanyakDot(titik p0, titik *p1, float s, int banyaktitik){
 	for (int i = 0; i < banyaktitik;i++){
-		p1[i] = scaleDot(p0, p1[i], s);
+		scaleDot(p0, p1[i], s);
 	}
 } 
-
-titik scaleDotInWindow(titik p){
-	titik pusat;
-//	pusat.x = windowPosition.x + windowSideLength/2;
-//	pusat.y = windowPosition.y + windowSideLength/2;
-	pusat.x = 0;
-	pusat.y = 0;
-
-	float ratio = ((float) GLOBAL_WINDOW_X/ (float) GLOBAL_LAYAR_X) / 3.0;
-
-	titik result = scaleDot(pusat, p, ratio);
-}

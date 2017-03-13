@@ -1,11 +1,11 @@
 #ifndef GLOB_VAR_TYPE_H
 #define GLOB_VAR_TYPE_H
 
-#define GLOBAL_LAYAR_X 800
+#define GLOBAL_LAYAR_X 1000
 #define GLOBAL_LAYAR_Y 700
 
-#define GLOBAL_WINDOW_X 400
-#define GLOBAL_WINDOW_Y 300
+#define GLOBAL_WINDOW_X 300
+#define GLOBAL_WINDOW_Y 200
 
 typedef struct{
     int r,g,b,a;
@@ -16,19 +16,7 @@ typedef struct{
 	int y;
 } titik;
 
-typedef struct {
-	titik p1;
-	titik p2;
-} line;
-
-typedef struct{
-	int n; //banyak titik
-	titik* point; //titik pada bidang
-} plane; //maksudnya bidang
-
 extern titik windowPosition;
-
-extern int windowSideLength;
 
 extern unsigned char buffer_r[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
 extern unsigned char buffer_g[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];

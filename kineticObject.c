@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+#include "rotasi.h"
 
 #define PI 3.14159265
 
@@ -13,49 +14,55 @@ extern kineticObject player;
 extern kineticObject enemy[100];
 extern kineticObject road[2];
 
-void setupImageCar(kineticObject *car){
-    //SETUP BUAT GAMBAR MOBIL
-}
-
-void setupImageRoad(kineticObject *road){
-    //SETUP BUAT GAMBAR JALAN
-}
-
 void checkCollision(int carLength){
+  if(player.status < 80)
+  {
     for(int i=0;i<lastEnemy;i++){
         float distance = sqrt((player.position.x - enemy[i].position.x)*(player.position.x - enemy[i].position.x)+
-        (player.position.y-enemy[i].position.y)*(player.position.y-enemy[i].position.y));
-            if(distance<=carLength){
-                startCrash(player);
-                startCrash(enemy[i]);
-            }
+            (player.position.y-enemy[i].position.y)*(player.position.y-enemy[i].position.y));
+
+        if(distance<=carLength){
+            startCrash(&player);
+            startCrash(&enemy[i]);
+        }
     }
+  }
 }
 
-int checkRoadOutOfBound(){
-    for(int i=0;i<lastRoad;i++){
-        if(road[i].position.x >GLOBAL_LAYAR_X)
-            return 1;
+void checkRoadOutOfBound(){
+  for(int i=0;i<2;i++){
+    if(enemy[i].position.x + 70 <=0)
+    {
+        if(i == 0)
+        {
+          enemy[i].position.x = enemy[1].position.x+150;
+        }
+        else
+        {
+          enemy[i].position.x = enemy[0].position.x+150;
+        }
     }
-    return 0;
+  }
+} 
+
+void changeRoad(){
+
 }
 
 void spawnPlayer(){
-    titik playerPosition = {25,1}; // NANTI DI GANTI
+    titik playerPosition = {150,450}; // NANTI DI GANTI
     player.position = playerPosition;
     player.speed = 0;
-    player.direction= 1 // 1 ke kanan ,  -1 ke kiri
+    player.direction= 1; // 1 ke kanan ,  -1 ke kiri
     player.status=1;
-    setupImageCar(&player);
 }
 
-void spawnEnemy(){
-    titik enemyPosition={25,50}; // NANTI DI GANTI
-    enemy[lastEnemy].position - enemyPosition;
+void spawnEnemy(titik p){
+    titik enemyPosition=p; // NANTI DI GANTI
+    enemy[lastEnemy].position = enemyPosition;
     enemy[lastEnemy].speed = 5;
-    enemy[lastEnemy].direction= -1 // 1 ke kanan ,  -1 ke kiri
+    enemy[lastEnemy].direction= -1; // 1 ke kanan ,  -1 ke kiri
     enemy[lastEnemy].status=1;
-    setupImageCar(&enemy[lastEnemy]);
     lastEnemy++;
 }
 
@@ -63,9 +70,8 @@ void spawnRoad(){
     titik roadPosition = {25,50};// NANTI DI GANTI
     road[lastRoad].position = roadPosition;;
     road[lastRoad].speed = 3;
-    road[lastRoad].direction=-1 // 1 ke kanan ,  -1 ke kiri
-    road[lastRooad].status=1;
-    setupImageRoad(&road[lastRoad]);
+    road[lastRoad].direction=-1; // 1 ke kanan ,  -1 ke kiri
+    road[lastRoad].status=1;
     lastRoad++;
 }
 
@@ -74,7 +80,7 @@ void runObject(){
     //Jalanin enemy car ==========================================================
     //Asumsi enemy hanya jalan horizontal
     for(int i=0;i<lastEnemy;i++){
-        if(enemy[i].status==1){
+        if(enemy[i].status>0){
             enemy[i].position.x = enemy[i].position.x + (enemy[i].direction*enemy[i].speed);
             enemy[i].position.y = enemy[i].position.y+0;
         }
@@ -82,7 +88,7 @@ void runObject(){
     //Jalanin petak road =========================================================
     //Asumsi road hanya jalan horizontal
     for(int i=0;i<lastRoad;i++){
-        if(road[i].status==1){
+        if(road[i].status>0){
             road[i].position.x = road[i].position.x + (road[i].direction*road[i].speed);
             road[i].position.y = road[i].position.y+0;
         }
@@ -96,17 +102,37 @@ void moveObject(titik p,kineticObject *o){
 
 void destroy(kineticObject *o){
     o->status = 0;
+    titik hancur = {0,0};
+    for(int i=0;i<=17;i++)
+      o->image[i]=hancur;
 }
 
 void startCrash(kineticObject *o){
-    int randomInt  = 1;
-    o->status = 99;
-    o->speed = o->speed/5;
-    o->direction = randomInt;
+    o->status = 100;
+    o->speed = o->speed *2;
+    o->direction  = -1*o->direction;
 }
 
-void crashProcess(){
-    //putar image object;
+void crashProcessPlayer(kineticObject *o){
+  if(o->status%12==4){
+          setPlayerImage();
+        }
+  titik mid = getMidPoint(o->image, 18);
+  rotasibanyak(mid, o->image, 30, 18);
+  o->status--;
+}
+
+void crashProcessEnemy(){
+    for(int i=0;i<lastEnemy;i++){
+      if(enemy[i].status>5){
+        if(enemy[i].status%12==4){
+          setEnemyImage();
+        }
+          titik mid = getMidPoint(enemy[i].image, 18);
+          rotasibanyak(mid, enemy[i].image, 30, 19);
+          enemy[i].status--;
+      }
+    }
 }
 
 
