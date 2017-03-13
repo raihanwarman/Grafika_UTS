@@ -13,6 +13,15 @@ unsigned char buffer_g[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
 unsigned char buffer_b[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
 unsigned char buffer_a[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
 
+struct Stack {
+  titik data[1000000];
+  int top;
+};
+
+void push(struct Stack *s, titik p);
+
+titik pop(struct Stack *s);
+
 //mengembalikan titik dengan nilai x dan y sesuai argumen
 titik setTitik(int x, int y);
 
@@ -42,6 +51,7 @@ void bufferDrawPlaneSolidCitra(titik* citra, titik origin, warna fill, warna bou
 //melakukan pewarnaan flood denganp sebagai titik api
 void fill(titik p, warna c, warna bound_c);
 
+void fillRectangle(titik p1, titik p2, warna c);
 
 //================================================
 void bufferDrawLine(titik p0, titik p1, warna c);	//mmengganti nilai pixel sehingga tergambar garis dari p0 ke p1
@@ -50,12 +60,6 @@ void bufferDrawPlane(titik* p, warna c, int sisi);			//membuat bidang yang menya
 void bufferDrawCircle(titik p, int radius, warna c);	//membuat lingkaran dengan p sebagai pusat
 int  dotDistance(titik p1, titik p2);		//mengembalikan jarak antara p1 dan p2
 //================================================
-
-// membuat pesawat dengan xof sebagai ofside kiri, yof sebagai ofset atas
-void drawPlane(int xof, int yof);
-
-// membuat tank dengan xof sebagai ofside kiri, yof sebagai ofset atas
-void drawTank(int xof, int yof);
 
 titik getMidPoint(titik *citra, int sisi);
 

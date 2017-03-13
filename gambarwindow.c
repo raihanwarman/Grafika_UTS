@@ -17,7 +17,7 @@ void DrawDot_window(titik p, warna c){
 		return ;
 	}
 
-    long int position = (p.x + 1000 + global_vinfo.xoffset) * (global_vinfo.bits_per_pixel / 8) +
+    long int position = (p.x + GLOBAL_LAYAR_X + global_vinfo.xoffset) * (global_vinfo.bits_per_pixel / 8) +
        (p.y + global_vinfo.yoffset) * global_finfo.line_length;
 
     if(global_vinfo.bits_per_pixel == 32){
@@ -132,7 +132,6 @@ void bufferDrawPlane_window(titik* p, warna c, int sisi){
 	for (i = 0; i < sisi-1; i++) {
 		bufferDrawLine_window(p[i], p[i+1], c);
 	}
-
 
 	bufferDrawLine_window(p[i], p[0], c);
 }
