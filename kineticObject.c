@@ -31,15 +31,15 @@ void checkCollision(int carLength){
 
 void checkRoadOutOfBound(){
   for(int i=0;i<2;i++){
-    if(enemy[i].position.x + 70 <=0)
+    if(road[i].position.x + 70 <=0)
     {
         if(i == 0)
         {
-          enemy[i].position.x = enemy[1].position.x+150;
+          road[i].position.x = enemy[1].position.x+150;
         }
         else
         {
-          enemy[i].position.x = enemy[0].position.x+150;
+          road[i].position.x = enemy[0].position.x+150;
         }
     }
   }
@@ -50,7 +50,7 @@ void changeRoad(){
 }
 
 void spawnPlayer(){
-    titik playerPosition = {150,450}; // NANTI DI GANTI
+    titik playerPosition = {150,550}; // NANTI DI GANTI
     player.position = playerPosition;
     player.speed = 0;
     player.direction= 1; // 1 ke kanan ,  -1 ke kiri
@@ -66,8 +66,8 @@ void spawnEnemy(titik p){
     lastEnemy++;
 }
 
-void spawnRoad(){
-    titik roadPosition = {25,50};// NANTI DI GANTI
+void spawnRoad(titik p){
+    titik roadPosition = p;// NANTI DI GANTI
     road[lastRoad].position = roadPosition;;
     road[lastRoad].speed = 3;
     road[lastRoad].direction=-1; // 1 ke kanan ,  -1 ke kiri
@@ -184,5 +184,33 @@ void setEnemyImage() {
     enemy[i].image[16].x = -32; enemy[i].image[16].y = 17;
     enemy[i].image[17].x = -40; enemy[i].image[17].y = 30;
     enemy[i].image[18].x = -75; enemy[i].image[18].y = 30;
+  }
+}
+
+void setRoadImage()
+{
+  int i;
+  for (i = 0; i < 2; i++) {
+    road[i].image = (titik *) malloc (19 * sizeof(titik));
+    road[i].image[0].x = -75; road[i].image[0].y = 0;
+    road[i].image[1].x = -40; road[i].image[1].y = 0;
+    road[i].image[2].x = -40; road[i].image[2].y = -20;
+    road[i].image[3].x = -5; road[i].image[3].y = -20;
+    road[i].image[4].x = 0; road[i].image[4].y = -30;
+    road[i].image[5].x = 5; road[i].image[5].y = -20;
+    road[i].image[6].x = 40; road[i].image[6].y = -20;
+    road[i].image[7].x = 40; road[i].image[7].y = 0;
+    road[i].image[8].x = 75; road[i].image[8].y = 0;
+
+    road[i].image[9].x = 75; road[i].image[9].y = 30;
+    road[i].image[10].x = 40; road[i].image[10].y = 30;
+    road[i].image[11].x = 32; road[i].image[11].y = 17;
+    road[i].image[12].x = 24; road[i].image[12].y = 17;
+    road[i].image[13].x = 16; road[i].image[13].y = 30;
+    road[i].image[14].x = -16; road[i].image[14].y = 30;
+    road[i].image[15].x = -24; road[i].image[15].y = 17;
+    road[i].image[16].x = -32; road[i].image[16].y = 17;
+    road[i].image[17].x = -40; road[i].image[17].y = 30;
+    road[i].image[18].x = -75; road[i].image[18].y = 30;
   }
 }

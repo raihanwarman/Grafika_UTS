@@ -51,13 +51,15 @@ int main()
 	warna bound = {10,10,10, 10};
 	titik p1 = {480,430};
 	titik p2 = {630,430};
+	titik p3 = {530,600};
 	spawnPlayer();
-	spawnEnemy(p1);
-	spawnEnemy(p2);
-	spawnRoad();
+	spawnEnemy(p3);
+	spawnRoad(p1);
+	spawnRoad(p2);
 
 	setPlayerImage();
 	setEnemyImage();
+	setRoadImage();
 
 	titik origin = {150,450};
 	refreshBuffer(pl0,pl1);
@@ -104,7 +106,7 @@ int main()
 		loadBuffer();
 
 		//cek kolisi
-		//checkCollision(100);
+		checkCollision(100);
 
 		//looping aspal jalan
 
@@ -146,6 +148,15 @@ void drawObjects()
 		if(enemy[i].status > 0)
 		{
 			bufferDrawPlaneSolidCitra(enemy[i].image, enemy[i].position, c, bound, 19);
+		} 
+	}
+
+	//gambar jalan
+	for(int i=0; i<2; i++)
+	{
+		if(road[i].status > 0)
+		{
+			bufferDrawPlaneSolidCitra(road[i].image, road[i].position, c, bound, 19);
 		} 
 	}
 }

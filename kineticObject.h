@@ -13,6 +13,7 @@ typedef struct{
     int direction;
     int status; 	//-1 inactive, 0 dead, 1 active, 99-50 rotating
     titik* image;
+    int z;
 } kineticObject;
 
 extern int lastEnemy;
@@ -42,12 +43,13 @@ void spawnPlayer(); //inisialisasi player
 
 void spawnEnemy(titik p); //insialisasi enemy
 
-void spawnRoad(); //inisialisasi jalan
+void spawnRoad(titik p); //inisialisasi jalan
 
 void checkRoadOutOfBound();//cek apakah jalan di luar layar
 
 void setPlayerImage(); // create the image of player
 void setEnemyImage(); // create the image of enemy
+void setRoadImage();
 void furnishPlayer(); // add wheel, window, etc. to player
 
 void furnishEnemy(); // add wheel, window, etc. to enemy
