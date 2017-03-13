@@ -1,6 +1,15 @@
 #include <time.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <linux/input.h>
+#include <pthread.h>
+#include <stdlib.h>
+
+void *preUpdate();
+void postUpdate();
+void updatePosisi();
+
+
 
 int main()
 {

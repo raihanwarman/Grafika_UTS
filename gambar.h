@@ -7,7 +7,6 @@
 #include "glob_var_type.h"
 #include "gambarwindow.h"
 #include "skala.h"
-#include "mapParser.h"
 
 unsigned char buffer_r[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
 unsigned char buffer_g[GLOBAL_LAYAR_X][GLOBAL_LAYAR_Y];
@@ -52,21 +51,11 @@ void bufferDrawCircle(titik p, int radius, warna c);	//membuat lingkaran dengan 
 int  dotDistance(titik p1, titik p2);		//mengembalikan jarak antara p1 dan p2
 //================================================
 
-// membuat pesawat dengan xof sebagai ofside kiri, yof sebagai ofset atas
-void drawPlane(int xof, int yof);
-
 // membuat tank dengan xof sebagai ofside kiri, yof sebagai ofset atas
 void drawTank(int xof, int yof);
 
 titik getMidPoint(titik *citra, int sisi);
 
 void drawWindow(titik windowPosition);
-
-//menggambar bidang-bidang yang banyak
-void drawBuildings(plane* bidang, int size, warna c);
-
-void drawTrees(plane* bidang, int size, warna c);
-
-void drawRoads(line* lines, int size, warna c);
 
 #endif //GAMBAR_H

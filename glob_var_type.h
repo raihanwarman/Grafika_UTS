@@ -1,10 +1,10 @@
 #ifndef GLOB_VAR_TYPE_H
 #define GLOB_VAR_TYPE_H
 
-#define GLOBAL_LAYAR_X 1000
+#define GLOBAL_LAYAR_X 800
 #define GLOBAL_LAYAR_Y 700
 
-#define GLOBAL_WINDOW_X 300
+#define GLOBAL_WINDOW_X 400
 #define GLOBAL_WINDOW_Y 300
 
 typedef struct{
@@ -15,6 +15,16 @@ typedef struct{
 	int x;
 	int y;
 } titik;
+
+typedef struct {
+	titik p1;
+	titik p2;
+} line;
+
+typedef struct{
+	int n; //banyak titik
+	titik* point; //titik pada bidang
+} plane; //maksudnya bidang
 
 extern titik windowPosition;
 

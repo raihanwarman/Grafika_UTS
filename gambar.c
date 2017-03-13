@@ -304,15 +304,6 @@ void drawPlane(int xof, int yof) {
     bufferDrawCircle(pMulutPesawat, 9, cRed);
 }
 
-void drawTank(int xof, int yof) {
-    titik badanTank[] = {{xof+20,yof+90}, {xof+120,yof+90}, {xof+140,yof+60}, {xof,yof+60}};
-    titik pShutterCircle = {xof+70,yof+60};
-    titik tankGun[] = {{xof+63,yof+40}, {xof+77,yof+40}, {xof+77,yof}, {xof+64,yof}};
-    bufferDrawPlaneSolid(badanTank, cRed, cRed, 4);
-    bufferDrawCircle(pShutterCircle, 20, cRed);
-    bufferDrawPlaneSolid(tankGun, cRed, cRed, 4);
-}
-
 void bufferDrawLine(titik p0, titik p1, warna c) {
     int x0 = p0.x; int x1 = p1.x; int y0 = p0.y; int y1 = p1.y;
     int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
@@ -327,9 +318,9 @@ void bufferDrawLine(titik p0, titik p1, warna c) {
       if (e2 >-dx) { err -= dy; x0 += sx; }
       if (e2 < dy) { err += dx; y0 += sy; }
     }
-    if (isOnWindow(p0,p1)) {
-        if (DotZone(p0) || DotZone(p1)) { // Dua-duanya di luar
-          objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p0, p1));
+//    if (isOnWindow(p0,p1)) {
+//        if (DotZone(p0) || DotZone(p1)) { // Dua-duanya di luar
+/*          objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p0, p1));
           objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p1, p0));
         } else if (DotZone(p0)) {
           objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p0, p1));
@@ -338,7 +329,7 @@ void bufferDrawLine(titik p0, titik p1, warna c) {
           objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p0, p1));
         } else {
           objekWindow[titikObjekWindow++] = move_to_window(p0);
-        }
+        }*/
 
         titik p0temp, p1temp;
         p0temp.x = p0.x - windowPosition.x;
@@ -350,7 +341,7 @@ void bufferDrawLine(titik p0, titik p1, warna c) {
         titik p0result = scaleDotInWindow(p0temp);
         titik p1result = scaleDotInWindow(p1temp);
         bufferDrawLine_window(p0result,p1result,c);
-    }
+//    }
 }
 
 void bufferDrawPlaneSolidCitra(titik *citra, titik pivot, warna c, warna bound_c, int sisi) {
@@ -377,39 +368,4 @@ void drawWindow(titik windowPosition){
 
     bufferDrawPlane(posWindow,cWhite,4);
     
-}
-
-//menggambar bidang-bidang yang banyak
-void drawBuildings(plane* bidang, int size, warna c){
-    for(int i=0; i<size; i++){
-        int j;;
-        for( j=0; j<bidang[i].n-1; j++){
-            bufferDrawLine(bidang[i].point[j], bidang[i].point[j+1], c);
-        }
-        bufferDrawLine(bidang[i].point[j], bidang[i].point[0], c);
-    }
-}
-
-void drawTrees(plane* bidang, int size, warna c){
-    titik citra[4];
-    int s = 5;
-
-    for(int i=0; i<size; i++)
-    {
-        //asumsi per bidang satu titik
-        titik origin = bidang[0].point[i];
-        citra[0].x = origin.x+s;citra[0].y = origin.y+s;
-        citra[1].x = origin.x-s;citra[1].y = origin.y-s;
-        citra[2].x = origin.x-s;citra[2].y = origin.y+s;
-        citra[3].x = origin.x+s;citra[3].y = origin.y-s;
-        bufferDrawPlane(citra, c, 4);
-    }
-}
-
-
-void drawRoads(line* lines, int size, warna c){
-    int i;
-    for (i = 0; i < size; i++) {
-        bufferDrawLine(lines[i].p1, lines[i].p2, c);
-    }
 }
