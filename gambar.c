@@ -274,43 +274,35 @@ void bufferDrawPlaneSolid(titik* p, warna c, warna bound_c, int sisi) {
   }
 }
 
+void push(struct Stack *s, titik p) {
+  s->data[s->top] = p;
+  s->top += 1;
+}
+
+titik pop(struct Stack *s) {
+  s->top -= 1;
+  return s->data[s->top];
+}
+
 void fill(titik p, warna c, warna bound_c) {
-	if (!is_color(p, c) && !is_color(p, bound_c)) {
-		bufferDrawDot(p, c);
-		titik new_p = {p.x, p.y+1};
-		fill(new_p, c, bound_c);
-		new_p.x = p.x-1; new_p.y = p.y;
-		fill(new_p, c, bound_c);
-		new_p.x = p.x+1; new_p.y = p.y;
-		fill(new_p, c, bound_c);
-		new_p.x = p.x; new_p.y = p.y-1;
-		fill(new_p, c, bound_c);
-	}
-}
+  struct Stack s;
+  s.top = 0;
+  push(&s, p);
 
-void drawPlane(int xof, int yof) {
-    titik ekorPesawatAtas[] = {{xof,yof+25}, {xof,yof+50}, {xof+25,yof+45}, {xof+15,yof+25}};
-    titik ekorPesawatBawah[] = {{xof,yof+50}, {xof+15,yof+70}, {xof+90,yof+70}, {xof+90,yof+45}, {xof+25,yof+45}};
-    titik badanPesawat[] = {{xof+90,yof+45}, {xof+190,yof+45}, {xof+190,yof+70}, {xof+90, yof+70}};
-    titik sayapAtas[] = {{xof+70,yof}, {xof+85,yof}, {xof+105, yof+45}, {xof+80,yof+45}};
-    titik sayapBawah[] = {{xof+70,yof+70}, {xof+95,yof+70}, {xof+80, yof+120}, {xof+55, yof+120}};
-    titik kepalaPesawat[] = {{xof+190,yof+45}, {xof+220,yof+50}, {xof+225, yof+70}, {xof+190, yof+70}};
-    titik pMulutPesawat = {xof+225, yof+62};
-    bufferDrawPlaneSolid(ekorPesawatAtas, cRed, cRed, 4);
-    bufferDrawPlaneSolid(ekorPesawatBawah, cRed, cRed, 5);
-    bufferDrawPlaneSolid(badanPesawat, cRed, cRed, 4);
-    bufferDrawPlaneSolid(sayapAtas, cRed, cRed, 4);
-    bufferDrawPlaneSolid(kepalaPesawat, cRed, cRed, 4);
-    bufferDrawCircle(pMulutPesawat, 9, cRed);
-}
-
-void drawTank(int xof, int yof) {
-    titik badanTank[] = {{xof+20,yof+90}, {xof+120,yof+90}, {xof+140,yof+60}, {xof,yof+60}};
-    titik pShutterCircle = {xof+70,yof+60};
-    titik tankGun[] = {{xof+63,yof+40}, {xof+77,yof+40}, {xof+77,yof}, {xof+64,yof}};
-    bufferDrawPlaneSolid(badanTank, cRed, cRed, 4);
-    bufferDrawCircle(pShutterCircle, 20, cRed);
-    bufferDrawPlaneSolid(tankGun, cRed, cRed, 4);
+  while (s.top > 0) {
+    titik p_n = pop(&s);
+    if (!is_color(p_n, c) && !is_color(p_n, bound_c)) {
+		  bufferDrawDot(p_n, c);
+  		titik new_p = {p_n.x, p_n.y+1};
+      push(&s, new_p);
+  		new_p.x = p_n.x-1; new_p.y = p_n.y;
+  		push(&s, new_p);
+  		new_p.x = p_n.x+1; new_p.y = p_n.y;
+  		push(&s, new_p);
+  		new_p.x = p_n.x; new_p.y = p_n.y-1;
+  		push(&s, new_p);
+    }
+  }
 }
 
 void bufferDrawLine(titik p0, titik p1, warna c) {
@@ -371,4 +363,13 @@ void drawWindow(titik windowPosition){
     posWindow[3].y = windowPosition.y+199;
 
     bufferDrawPlane(posWindow,cWhite,4);
+}
+
+void fillRectangle(titik p1, titik p2, warna c) {
+  for (int i = p1.x; i < p2.x; i++) {
+    for (int j = p1.y; j < p2.y; j++) {
+      titik p = {i, j};
+      bufferDrawDot(p, c);
+    }
+  }
 }

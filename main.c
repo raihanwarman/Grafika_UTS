@@ -27,7 +27,7 @@ titik pl0 = {0,0};
 titik pl1 = {999,699};
 titik pw0 = {0,0};
 titik pw1 = {299,199};
-int fd; 
+int fd;
 
 int main()
 {
@@ -49,9 +49,9 @@ int main()
 	init_fb();
 	warna c = {255,255,255,255};
 	warna bound = {10,10,10, 10};
-	titik p1 = {480,430};
-	titik p2 = {630,430};
-	titik p3 = {530,600};
+	titik p1 = {500, 350};
+	titik p2 = {1500, 350};
+	titik p3 = {530,400};
 	spawnPlayer();
 	spawnEnemy(p3);
 	spawnRoad(p1);
@@ -135,6 +135,17 @@ void drawObjects()
 {
 	warna c = {255,255,255,255};
 	warna bound = {10,10,10,10};
+  warna green = {1, 255, 1, 255};
+  warna blue = {1, 1, 255, 255};
+
+  //gambar jalan
+  titik mid = {500, 350};
+  bufferDrawPlaneSolidCitra(road[0].image, mid, green, green, 4);
+	for(int i=0; i<2; i++)
+	{
+		// if(road[i].status > 0)
+    furnishRoad(&road[i]);
+	}
 
 	//gambar player
 	if(player.status > 0)
@@ -148,16 +159,7 @@ void drawObjects()
 		if(enemy[i].status > 0)
 		{
 			bufferDrawPlaneSolidCitra(enemy[i].image, enemy[i].position, c, bound, 19);
-		} 
-	}
-
-	//gambar jalan
-	for(int i=0; i<2; i++)
-	{
-		if(road[i].status > 0)
-		{
-			bufferDrawPlaneSolidCitra(road[i].image, road[i].position, c, bound, 19);
-		} 
+		}
 	}
 }
 

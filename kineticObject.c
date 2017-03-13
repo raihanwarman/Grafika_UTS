@@ -31,26 +31,29 @@ void checkCollision(int carLength){
 
 void checkRoadOutOfBound(){
   for(int i=0;i<2;i++){
-    if(road[i].position.x + 70 <=0)
-    {
-        if(i == 0)
-        {
-          road[i].position.x = enemy[1].position.x+150;
-        }
-        else
-        {
-          road[i].position.x = enemy[0].position.x+150;
-        }
+    if (road[i].position.x == -500) {
+      road[i].position.x = 1500;
     }
+    // if(road[i].position.x + 70 <=0)
+    // {
+    //     if(i == 0)
+    //     {
+    //       road[i].position.x = enemy[1].position.x+150;
+    //     }
+    //     else
+    //     {
+    //       road[i].position.x = enemy[0].position.x+150;
+    //     }
+    // }
   }
-} 
+}
 
 void changeRoad(){
 
 }
 
 void spawnPlayer(){
-    titik playerPosition = {150,550}; // NANTI DI GANTI
+    titik playerPosition = {150,350}; // NANTI DI GANTI
     player.position = playerPosition;
     player.speed = 0;
     player.direction= 1; // 1 ke kanan ,  -1 ke kiri
@@ -60,7 +63,7 @@ void spawnPlayer(){
 void spawnEnemy(titik p){
     titik enemyPosition=p; // NANTI DI GANTI
     enemy[lastEnemy].position = enemyPosition;
-    enemy[lastEnemy].speed = 5;
+    enemy[lastEnemy].speed = 6;
     enemy[lastEnemy].direction= -1; // 1 ke kanan ,  -1 ke kiri
     enemy[lastEnemy].status=1;
     lastEnemy++;
@@ -69,7 +72,7 @@ void spawnEnemy(titik p){
 void spawnRoad(titik p){
     titik roadPosition = p;// NANTI DI GANTI
     road[lastRoad].position = roadPosition;;
-    road[lastRoad].speed = 3;
+    road[lastRoad].speed = 4;
     road[lastRoad].direction=-1; // 1 ke kanan ,  -1 ke kiri
     road[lastRoad].status=1;
     lastRoad++;
@@ -135,9 +138,6 @@ void crashProcessEnemy(){
     }
 }
 
-
-
-
 void setPlayerImage() {
   player.image = (titik*) malloc(18 * sizeof(titik));
   player.image[0].x = -70; player.image[0].y = 0;
@@ -191,26 +191,23 @@ void setRoadImage()
 {
   int i;
   for (i = 0; i < 2; i++) {
-    road[i].image = (titik *) malloc (19 * sizeof(titik));
-    road[i].image[0].x = -75; road[i].image[0].y = 0;
-    road[i].image[1].x = -40; road[i].image[1].y = 0;
-    road[i].image[2].x = -40; road[i].image[2].y = -20;
-    road[i].image[3].x = -5; road[i].image[3].y = -20;
-    road[i].image[4].x = 0; road[i].image[4].y = -30;
-    road[i].image[5].x = 5; road[i].image[5].y = -20;
-    road[i].image[6].x = 40; road[i].image[6].y = -20;
-    road[i].image[7].x = 40; road[i].image[7].y = 0;
-    road[i].image[8].x = 75; road[i].image[8].y = 0;
-
-    road[i].image[9].x = 75; road[i].image[9].y = 30;
-    road[i].image[10].x = 40; road[i].image[10].y = 30;
-    road[i].image[11].x = 32; road[i].image[11].y = 17;
-    road[i].image[12].x = 24; road[i].image[12].y = 17;
-    road[i].image[13].x = 16; road[i].image[13].y = 30;
-    road[i].image[14].x = -16; road[i].image[14].y = 30;
-    road[i].image[15].x = -24; road[i].image[15].y = 17;
-    road[i].image[16].x = -32; road[i].image[16].y = 17;
-    road[i].image[17].x = -40; road[i].image[17].y = 30;
-    road[i].image[18].x = -75; road[i].image[18].y = 30;
+    road[i].image = (titik *) malloc (4 * sizeof(titik));
+    road[i].image[0].x = -500; road[i].image[0].y = -200;
+    road[i].image[1].x = 500; road[i].image[1].y = -200;
+    road[i].image[2].x = 500; road[i].image[2].y = 200;
+    road[i].image[3].x = -500; road[i].image[3].y = 200;
   }
+}
+
+void furnishRoad(kineticObject *road) {
+  titik s11, s12, s21, s22;
+  warna yellow = {255, 255, 1, 255};
+
+  s11.x = road->position.x-400; s11.y = road->position.y-25;
+  s12.x = road->position.x-100; s12.y = road->position.y+25;
+  s21.x = road->position.x+100; s21.y = road->position.y-25;
+  s22.x = road->position.x+400; s22.y = road->position.y+25;
+
+  fillRectangle(s11, s12, yellow);
+  fillRectangle(s21, s22, yellow);
 }

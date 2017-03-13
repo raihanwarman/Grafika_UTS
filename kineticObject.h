@@ -53,3 +53,5 @@ void setRoadImage();
 void furnishPlayer(); // add wheel, window, etc. to player
 
 void furnishEnemy(); // add wheel, window, etc. to enemy
+
+void furnishRoad();
