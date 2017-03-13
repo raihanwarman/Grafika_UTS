@@ -1,11 +1,11 @@
 #ifndef GLOB_VAR_TYPE_H
 #define GLOB_VAR_TYPE_H
 
-#define GLOBAL_LAYAR_X 1000
+#define GLOBAL_LAYAR_X 800
 #define GLOBAL_LAYAR_Y 700
 
-#define GLOBAL_WINDOW_X 300
-#define GLOBAL_WINDOW_Y 200
+#define GLOBAL_WINDOW_X 400
+#define GLOBAL_WINDOW_Y 350
 
 typedef struct{
     int r,g,b,a;

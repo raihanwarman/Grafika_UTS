@@ -328,7 +328,7 @@ void bufferDrawLine(titik p0, titik p1, warna c) {
       if (e2 < dy) { err += dx; y0 += sy; }
     }
 
-    if (isOnWindow(p0,p1)) {
+/*    if (isOnWindow(p0,p1)) {
         if (DotZone(p0) && DotZone(p1)) { // Dua-duanya di luar
           objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p0, p1));
           objekWindow[titikObjekWindow++] = move_to_window(get_intersection(p1, p0));
@@ -346,7 +346,12 @@ void bufferDrawLine(titik p0, titik p1, warna c) {
         p1temp.x = p1.x - windowPosition.x;
         p1temp.y = p1.y - windowPosition.y;
         bufferDrawLine_window(p0temp,p1temp,c);
-    }
+    }*/
+    titik p0result = scaleDotInWindow(p0);
+    titik p1result = scaleDotInWindow(p1);
+
+    bufferDrawLine_window(p0result,p1result,c);
+
 }
 
 void bufferDrawPlaneSolidCitra(titik *citra, titik pivot, warna c, warna bound_c, int sisi) {

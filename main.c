@@ -24,9 +24,9 @@ int lastRoad;
 int windowSideLength;
 
 titik pl0 = {0,0};
-titik pl1 = {999,699};
-titik pw0 = {0,0};
-titik pw1 = {299,199};
+titik pl1 = {799,699};
+titik pw0 = {810,0};
+titik pw1 = {1209,349};
 int fd; 
 
 int main()
@@ -34,7 +34,7 @@ int main()
 //**setup-pendengar-keyboard********************************************************************
 	// Input keyboard device file
     //const char *dev = "/dev/input/by-id/usb-_USB_Keyboard-event-kbd";
-    const char *dev = "/dev/input/event3";
+    const char *dev = "/dev/input/event4";
     //const char *dev = "/dev/input/by-id/usb-_USB_Keyboard-event-kbd";
     // Open device for reference
     fd = open(dev, O_RDONLY);
@@ -63,10 +63,11 @@ int main()
 
 	titik origin = {150,450};
 	refreshBuffer(pl0,pl1);
+	refreshBuffer_window(pw0,pw1);
+
 	drawObjects();
 	loadBuffer();
 
-	refreshBuffer_window(pw0,pw1);
 	loadBuffer_window();
 
 	//deklarasi variabel
@@ -102,8 +103,14 @@ int main()
 
 		//gambar
 		refreshBuffer(pl0,pl1);
+		refreshBuffer_window(pw0,pw1);
+
 		drawObjects();
 		loadBuffer();
+		loadBuffer_window();
+
+		//gambar di window
+
 
 		//cek kolisi
 		checkCollision(100);
