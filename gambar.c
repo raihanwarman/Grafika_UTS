@@ -262,7 +262,10 @@ void bufferDrawPlaneSolid(titik* p, warna c, warna bound_c, int sisi) {
 	flare_point.y = y_mid / sisi;
 	fill(flare_point, c, bound_c);
 
-  if (titikObjekWindow > 0) {
+  titik flare_point_result = scaleDotInWindow(flare_point);
+  fill_window(flare_point_result, c, bound_c);
+
+/*  if (titikObjekWindow > 0) {
     x_mid = 0; y_mid = 0;
     for (i = 0; i < titikObjekWindow; i++) {
       x_mid += objekWindow[i].x;
@@ -271,9 +274,9 @@ void bufferDrawPlaneSolid(titik* p, warna c, warna bound_c, int sisi) {
     window_point.x = x_mid / titikObjekWindow;
   	window_point.y = y_mid / titikObjekWindow;
 
-    
-    fill_window(window_point, c, bound_c);
-  }
+    titik window_point_result = scaleDotInWindow(window_point);
+    fill_window(window_point_result, c, bound_c);
+  }*/
 }
 
 void push(struct Stack *s, titik p) {
