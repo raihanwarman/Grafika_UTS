@@ -25,6 +25,7 @@ kineticObject road[5];
 int lastEnemy;
 ssize_t n;
 int lastRoad;
+int score = 0;
 
 int windowSideLength;
 
@@ -174,6 +175,7 @@ int main()
 	refreshBuffer_window(pw0,pw1);
 
 	drawObjects();
+  drawScore(score);
 	loadBuffer();
 
 	loadBuffer_window();
@@ -224,7 +226,7 @@ int main()
 		refreshBuffer_window(pw0,pw1);
 
 		drawObjects();
-
+    drawScore(score);
 		loadBuffer();
 		loadBuffer_window();
 
@@ -243,7 +245,6 @@ int main()
 
 		//spawn musuh
 		if (endTime-enemyStart>5000000) {
-      printf("HOLA!\n");
 			n = rand() %2;
 			spawnEnemy(arrP[n]);
 			enemyStart = endTime;
@@ -298,6 +299,9 @@ void drawObjects()
 	if(player.status > 0)
 	{
 		bufferDrawPlaneSolidCitra(player.image, player.position, lightblue, black, 18);
+    if (player.status == 1) {
+      furnishPlayer(&player);
+    }
 	}
 
 	//gambar musuh
@@ -306,6 +310,9 @@ void drawObjects()
 		if(enemy[i].status > 0)
 		{
 			bufferDrawPlaneSolidCitra(enemy[i].image, enemy[i].position, orange, red, 19);
+      if (enemy[i].status == 1) {
+        furnishEnemy(&enemy[i]);
+      }
 		}
 	}
 }

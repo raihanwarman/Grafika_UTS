@@ -16,6 +16,7 @@ typedef struct{
     int z;
 } kineticObject;
 
+extern int score;
 extern int lastEnemy;
 extern int lastRoad;
 
@@ -50,8 +51,8 @@ void checkRoadOutOfBound();//cek apakah jalan di luar layar
 void setPlayerImage(); // create the image of player
 void setEnemyImage(); // create the image of enemy
 void setRoadImage();
-void furnishPlayer(); // add wheel, window, etc. to player
+void furnishPlayer(kineticObject *player);
 
-void furnishEnemy(kineticObject *enemy); // add wheel, window, etc. to enemy
+void furnishEnemy(kineticObject *enemy);
 
 void furnishRoad(kineticObject *road);

@@ -8,7 +8,7 @@
 
 extern int lastEnemy;
 extern int lastRoad;
-
+extern int score;
 
 extern kineticObject player;
 extern kineticObject enemy[1000];
@@ -79,6 +79,7 @@ void runObject(){
             enemy[i].position.y = enemy[i].position.y+0;
             if (enemy[i].position.x < 0) {
               destroy(&enemy[i]);
+              score++;
             }
         }
     }
@@ -138,6 +139,7 @@ void setPlayerImage() {
   player.image[5].x = 70; player.image[5].y = 0;
   player.image[6].x = 75; player.image[6].y = 5;
   player.image[7].x = 75; player.image[7].y = 30;
+
   player.image[8].x = 50; player.image[8].y = 30;
   player.image[9].x = 42; player.image[9].y = 17;
   player.image[10].x = 34; player.image[10].y = 17;
@@ -187,8 +189,48 @@ void setRoadImage()
   }
 }
 
-void furnishPlayer() {
+void furnishPlayer(kineticObject *player) {
+  warna gray = {40, 40, 40, 255};
+  titik leftwheel[6], rightwheel[6];
 
+  leftwheel[0].x = 50; leftwheel[0].y = 30;
+  leftwheel[1].x = 42; leftwheel[1].y = 17;
+  leftwheel[2].x = 34; leftwheel[2].y = 17;
+  leftwheel[3].x = 26; leftwheel[3].y = 30;
+  leftwheel[4].x = 34; leftwheel[4].y = 43;
+  leftwheel[5].x = 42; leftwheel[5].y = 43;
+
+  rightwheel[0].x = -26; rightwheel[0].y = 30;
+  rightwheel[1].x = -34; rightwheel[1].y = 17;
+  rightwheel[2].x = -42; rightwheel[2].y = 17;
+  rightwheel[3].x = -50; rightwheel[3].y = 30;
+  rightwheel[4].x = -42; rightwheel[4].y = 43;
+  rightwheel[5].x = -34; rightwheel[5].y = 43;
+
+  bufferDrawPlaneSolidCitra(leftwheel, player->position, gray, gray, 6);
+  bufferDrawPlaneSolidCitra(rightwheel, player->position, gray, gray, 6);
+}
+
+void furnishEnemy(kineticObject *enemy) {
+  warna gray = {40, 40, 40, 255};
+  titik leftwheel[6], rightwheel[6];
+
+  leftwheel[0].x = 40; leftwheel[0].y = 30;
+  leftwheel[1].x = 32; leftwheel[1].y = 17;
+  leftwheel[2].x = 24; leftwheel[2].y = 17;
+  leftwheel[3].x = 16; leftwheel[3].y = 30;
+  leftwheel[4].x = 24; leftwheel[4].y = 43;
+  leftwheel[5].x = 32; leftwheel[5].y = 43;
+
+  rightwheel[0].x = -16; rightwheel[0].y = 30;
+  rightwheel[1].x = -24; rightwheel[1].y = 17;
+  rightwheel[2].x = -32; rightwheel[2].y = 17;
+  rightwheel[3].x = -40; rightwheel[3].y = 30;
+  rightwheel[4].x = -32; rightwheel[4].y = 43;
+  rightwheel[5].x = -24; rightwheel[5].y = 43;
+
+  bufferDrawPlaneSolidCitra(leftwheel, enemy->position, gray, gray, 6);
+  bufferDrawPlaneSolidCitra(rightwheel, enemy->position, gray, gray, 6);
 }
 
 void furnishRoad(kineticObject *road) {

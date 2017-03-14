@@ -417,3 +417,130 @@ void fillRectangleWindow(titik p1, titik p2, warna c) {
     }
   }
 }
+
+void drawScore(int score) {
+  int a, b, c;
+  a = score / 100;
+  b = (score / 10) % 10;
+  c = score % 10;
+  drawNumber(a, 100);
+  drawNumber(b, 175);
+  drawNumber(c, 250);
+}
+
+void drawNumber(int num, int offset) {
+  warna red = {255, 255, 255, 255};
+  if (num == 0) {
+    titik t[4];
+    t[0].x = 5 + offset; t[0].y = 225;
+    t[1].x = 55 + offset;t[1].y = 225;
+    t[2].x = 55 + offset;t[2].y = 325;
+    t[3].x = 5 + offset;t[3].y = 325;
+    bufferDrawLine_window(t[0], t[1], red);
+    bufferDrawLine_window(t[1], t[2], red);
+    bufferDrawLine_window(t[2], t[3], red);
+    bufferDrawLine_window(t[3], t[0], red);
+  } else if (num == 1) {
+    titik t[2];
+    t[0].x = 55 + offset;t[0].y = 225;
+    t[1].x = 55 + offset;t[1].y = 325;
+    bufferDrawLine_window(t[0], t[1], red);
+  } else if (num == 2) {
+    titik t[6];
+    t[0].x = 5 + offset;t[0].y = 225;
+    t[1].x = 55 + offset;t[1].y = 225;
+    t[2].x = 55 + offset;t[2].y = 275;
+    t[3].x = 5 + offset;t[3].y = 275;
+    t[4].x = 5 + offset;t[4].y = 325;
+    t[5].x = 55 + offset;t[5].y = 325;
+    bufferDrawLine_window(t[0], t[1], red);
+    bufferDrawLine_window(t[1], t[2], red);
+    bufferDrawLine_window(t[2], t[3], red);
+    bufferDrawLine_window(t[3], t[4], red);
+    bufferDrawLine_window(t[4], t[5], red);
+  } else if (num == 3) {
+    titik t[6];
+    t[0].x = 5 + offset;t[0].y = 225;
+    t[1].x = 55 + offset;t[1].y = 225;
+    t[2].x = 55 + offset;t[2].y = 275;
+    t[3].x = 5 + offset;t[3].y = 275;
+    t[4].x = 55 + offset;t[4].y = 325;
+    t[5].x = 5 + offset;t[5].y = 325;
+    bufferDrawLine_window(t[0], t[1], red);
+    bufferDrawLine_window(t[1], t[2], red);
+    bufferDrawLine_window(t[2], t[3], red);
+    bufferDrawLine_window(t[2], t[4], red);
+    bufferDrawLine_window(t[4], t[5], red);
+  } else if (num == 4) {
+    titik t[5];
+    t[0].x = 5 + offset;t[0].y = 225;
+    t[1].x = 5 + offset;t[1].y = 275;
+    t[2].x = 55 + offset;t[2].y = 275;
+    t[3].x = 55 + offset;t[3].y = 225;
+    t[4].x = 55 + offset;t[4].y = 325;
+    bufferDrawLine_window(t[0], t[1], red);
+    bufferDrawLine_window(t[1], t[2], red);
+    bufferDrawLine_window(t[2], t[3], red);
+    bufferDrawLine_window(t[3], t[4], red);
+  } else if (num == 5) {
+    titik t[6];
+    t[0].x = 55 + offset;t[0].y = 225;
+    t[1].x = 5 + offset;t[1].y = 225;
+    t[2].x = 5 + offset;t[2].y = 275;
+    t[3].x = 55 + offset;t[3].y = 275;
+    t[4].x = 55 + offset;t[4].y = 325;
+    t[5].x = 5 + offset;t[5].y = 325;
+    bufferDrawLine_window(t[0], t[1], red);
+    bufferDrawLine_window(t[1], t[2], red);
+    bufferDrawLine_window(t[2], t[3], red);
+    bufferDrawLine_window(t[3], t[4], red);
+    bufferDrawLine_window(t[4], t[5], red);
+  } else if (num == 6) {
+    titik t[6];
+    t[0].x = 5 + offset;t[0].y = 275;
+    t[1].x = 55 + offset;t[1].y = 275;
+    t[2].x = 55 + offset;t[2].y = 325;
+    t[3].x = 5 + offset;t[3].y = 325;
+    t[4].x = 5 + offset;t[4].y = 225;
+    t[5].x = 55 + offset;t[5].y = 225;
+    bufferDrawLine_window(t[0], t[1], red);
+    bufferDrawLine_window(t[1], t[2], red);
+    bufferDrawLine_window(t[2], t[3], red);
+    bufferDrawLine_window(t[3], t[4], red);
+    bufferDrawLine_window(t[4], t[5], red);
+  } else if (num == 7) {
+    titik t[3];
+    t[0].x = 5 + offset;t[0].y = 225;
+    t[1].x = 55 + offset;t[1].y = 225;
+    t[2].x = 55 + offset;t[2].y = 325;
+    bufferDrawLine_window(t[0], t[1], red);
+    bufferDrawLine_window(t[1], t[2], red);
+  } else if (num == 8) {
+    titik t[6];
+    t[0].x = 5 + offset;t[0].y = 225;
+    t[1].x = 55 + offset;t[1].y = 225;
+    t[2].x = 55 + offset;t[2].y = 325;
+    t[3].x = 5 + offset;t[3].y = 325;
+    t[4].x = 5 + offset;t[4].y = 275;
+    t[5].x = 5 + offset;t[5].y = 275;
+    bufferDrawLine_window(t[0], t[1], red);
+    bufferDrawLine_window(t[1], t[2], red);
+    bufferDrawLine_window(t[2], t[3], red);
+    bufferDrawLine_window(t[3], t[4], red);
+    bufferDrawLine_window(t[4], t[5], red);
+    bufferDrawLine_window(t[3], t[0], red);
+  } else {
+    titik t[6];
+    t[0].x = 55 + offset;t[0].y = 275;
+    t[1].x = 5 + offset;t[1].y = 275;
+    t[2].x = 5 + offset;t[2].y = 225;
+    t[3].x = 55 + offset;t[3].y = 225;
+    t[4].x = 55 + offset;t[4].y = 325;
+    t[5].x = 5 + offset;t[5].y = 325;
+    bufferDrawLine_window(t[0], t[1], red);
+    bufferDrawLine_window(t[1], t[2], red);
+    bufferDrawLine_window(t[2], t[3], red);
+    bufferDrawLine_window(t[3], t[4], red);
+    bufferDrawLine_window(t[4], t[5], red);
+  }
+}

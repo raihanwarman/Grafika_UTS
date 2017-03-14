@@ -69,4 +69,8 @@ int DotZone(titik p);
 
 void fillRectangleWindow(titik p1, titik p2, warna c);
 
+void drawScore();
+
+void drawNumber(int num, int offset);
+
 #endif //GAMBARWINDOW_H
