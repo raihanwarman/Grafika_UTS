@@ -199,6 +199,10 @@ void setRoadImage()
   }
 }
 
+void furnishPlayer() {
+
+}
+
 void furnishRoad(kineticObject *road) {
   titik s11, s12, s21, s22;
   warna yellow = {255, 255, 1, 255};

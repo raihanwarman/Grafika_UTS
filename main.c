@@ -265,14 +265,22 @@ int main()
 void drawObjects()
 {
 	warna c = {255,255,255,255};
-	warna bound = {10,10,10,10};
+	warna black = {10,10,10,255};
   warna green = {1, 255, 1, 255};
-	//gambar jalan
+  warna orange = {255, 153, 1, 255};
+  warna red = {255, 1, 1, 255};
+  warna lightblue = {102, 255, 255, 255};
+
+  //gambar jalan
+  titik topleft = {0, 230};
+  titik bottomright = {2500, 630};
+  fillRectangle(topleft, bottomright, green);
+  fillRectangleWindow(scaleDotInWindow(topleft), scaleDotInWindow(bottomright), green);
 	for(int i=0; i<2; i++)
 	{
 		if(road[i].status > 0)
 		{
-			bufferDrawPlaneSolidCitra(road[i].image, road[i].position, green, green, 4);
+			//bufferDrawPlaneSolidCitra(road[i].image, road[i].position, green, green, 4);
       furnishRoad(&road[i]);
 		}
 	}
@@ -280,7 +288,7 @@ void drawObjects()
 	//gambar player
 	if(player.status > 0)
 	{
-		bufferDrawPlaneSolidCitra(player.image, player.position, c, bound, 18);
+		bufferDrawPlaneSolidCitra(player.image, player.position, lightblue, black, 18);
 	}
 
 	//gambar musuh
@@ -288,7 +296,7 @@ void drawObjects()
 	{
 		if(enemy[i].status > 0)
 		{
-			bufferDrawPlaneSolidCitra(enemy[i].image, enemy[i].position, c, bound, 19);
+			bufferDrawPlaneSolidCitra(enemy[i].image, enemy[i].position, orange, red, 19);
 		}
 	}
 }

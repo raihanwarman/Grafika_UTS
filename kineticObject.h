@@ -52,6 +52,6 @@ void setEnemyImage(); // create the image of enemy
 void setRoadImage();
 void furnishPlayer(); // add wheel, window, etc. to player
 
-void furnishEnemy(); // add wheel, window, etc. to enemy
+void furnishEnemy(kineticObject *enemy); // add wheel, window, etc. to enemy
 
-void furnishRoad();
+void furnishRoad(kineticObject *road);
