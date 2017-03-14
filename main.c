@@ -18,10 +18,10 @@ pthread_t thread0; 		//thread input capture
 struct input_event ev;	//something-something keylogger
 int keypress = 0;
 titik p11 = {200,300};
-titik p22 = {200,600};
+titik p22 = {200,560};
 kineticObject player;
-kineticObject enemy[100];
-kineticObject road[2];
+kineticObject enemy[1000];
+kineticObject road[5];
 int lastEnemy;
 ssize_t n;
 int lastRoad;
@@ -54,12 +54,13 @@ int main()
 
 //**setup-objek-game****************************************************************************
 	init_fb();
+  srand(time(NULL));
 	warna c = {255,255,255,255};
 	warna bound = {10,10,10,10};
 	titik p1 = {400,430};
 	titik p2 = {1200,430};
-	titik p3 = {530,600};
-	titik p4 = {530,300};
+	titik p3 = {2500,560};
+	titik p4 = {2500,300};
 	titik p5 = {220,100};
 	titik l1 = {100,100};
 	titik l2 = {100,190};
@@ -146,9 +147,23 @@ int main()
 	arrP[0] = p3;
 	arrP[1] = p4;
 	spawnPlayer();
-	spawnEnemy(p3);
+
+  titik pEnemy = {600, 560};
+  while (pEnemy.x <= 2600) {
+    int x = rand() % 2;
+    if (x == 0) {
+      pEnemy.y = 300;
+    } else {
+      pEnemy.y = 560;
+    }
+    spawnEnemy(pEnemy);
+    pEnemy.x += 300;
+  }
 	spawnRoad(p1);
-	spawnRoad(p2);
+  for (int aa = 0; aa < 4; aa++) {
+      p1.x += 800;
+      spawnRoad(p1);
+  }
 
 	setPlayerImage();
 	setEnemyImage();
@@ -193,7 +208,6 @@ int main()
 		{
 			crashProcessPlayer(&player);
 			crashProcessEnemy();
-			printf("Player status = %d\n", player.status);
 		}
 
 		if (player.status==5) {
@@ -229,6 +243,7 @@ int main()
 
 		//spawn musuh
 		if (endTime-enemyStart>5000000) {
+      printf("HOLA!\n");
 			n = rand() %2;
 			spawnEnemy(arrP[n]);
 			enemyStart = endTime;
@@ -244,20 +259,14 @@ int main()
 			usleep((17-elapsedTime)*1000);
 		}
 	}
-
 	//tulis game over
-	printf("masuk\n");
 	refreshBuffer(pl0,pl1);
-	printf("masuk\n");
 	bufferDrawPlane(arrL, c, 6);
 	bufferDrawPlane(arrO, c, 4);
 	bufferDrawPlane(arrOO, c, 4);
 	bufferDrawPlane(arrS, c, 12);
 	bufferDrawPlane(arrE, c, 12);
-	printf("masuk\n");
 	loadBuffer();
-
-
 	return 0;
 }
 
@@ -276,7 +285,7 @@ void drawObjects()
   titik bottomright = {2500, 630};
   fillRectangle(topleft, bottomright, green);
   fillRectangleWindow(scaleDotInWindow(topleft), scaleDotInWindow(bottomright), green);
-	for(int i=0; i<2; i++)
+	for(int i=0; i<5; i++)
 	{
 		if(road[i].status > 0)
 		{
@@ -292,7 +301,7 @@ void drawObjects()
 	}
 
 	//gambar musuh
-	for(int i=0; i<100; i++)
+	for(int i=0; i<1000; i++)
 	{
 		if(enemy[i].status > 0)
 		{

@@ -12,7 +12,7 @@ typedef struct{
     int speed;
     int direction;
     int status; 	//-1 inactive, 0 dead, 1 active, 99-50 rotating
-    titik* image;
+    titik image[20];
     int z;
 } kineticObject;
 
@@ -20,8 +20,8 @@ extern int lastEnemy;
 extern int lastRoad;
 
 extern kineticObject player;
-extern kineticObject enemy[100];
-extern kineticObject road[2];
+extern kineticObject enemy[1000];
+extern kineticObject road[5];
 
 void checkCollision(int carLength);   //cek apakah terdapat peluru yang berada sejauh oTaffset dari pesawat,
 								     //jika iya kedua objek memiliki isTabrakan true

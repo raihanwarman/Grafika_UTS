@@ -353,12 +353,13 @@ void bufferDrawLine(titik p0, titik p1, warna c) {
 
 void bufferDrawPlaneSolidCitra(titik *citra, titik pivot, warna c, warna bound_c, int sisi) {
   int i;
-  titik* posAbs = (titik*) malloc(8 * sizeof(titik));
+  titik* posAbs = (titik*) malloc(sisi * sizeof(titik));
   for (i = 0; i < sisi; i++) {
     posAbs[i].x = citra[i].x + pivot.x;
     posAbs[i].y = citra[i].y + pivot.y;
   }
   bufferDrawPlaneSolid(posAbs, c, bound_c, sisi);
+  free(posAbs);
 }
 
 void drawWindow(titik windowPosition){
