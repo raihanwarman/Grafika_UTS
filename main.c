@@ -34,14 +34,14 @@ titik pl1 = {799,699};
 //titik pw1 = {1209,349};
 titik pw0 = {0,0};
 titik pw1 = {399,349};
-int fd; 
+int fd;
 
 int main()
 {
 //**setup-pendengar-keyboard********************************************************************
 	// Input keyboard device file
     //const char *dev = "/dev/input/by-id/usb-_USB_Keyboard-event-kbd";
-    const char *dev = "/dev/input/event4";
+    const char *dev = "/dev/input/event3";
     //const char *dev = "/dev/input/by-id/usb-_USB_Keyboard-event-kbd";
     // Open device for reference
     fd = open(dev, O_RDONLY);
@@ -56,8 +56,8 @@ int main()
 	init_fb();
 	warna c = {255,255,255,255};
 	warna bound = {10,10,10,10};
-	titik p1 = {480,430};
-	titik p2 = {630,430};
+	titik p1 = {400,430};
+	titik p2 = {1200,430};
 	titik p3 = {530,600};
 	titik p4 = {530,300};
 	titik p5 = {220,100};
@@ -172,7 +172,7 @@ int main()
 	if (player.status==1) {
 		pthread_create(&thread0, NULL, preUpdate, NULL);
 	}
-	
+
 	int enemyStart;
 	enemyStart = clock();
 	int n;
@@ -195,7 +195,7 @@ int main()
 			crashProcessEnemy();
 			printf("Player status = %d\n", player.status);
 		}
-		
+
 		if (player.status==5) {
 			break;
 		}
@@ -206,7 +206,7 @@ int main()
 
 		//gambar
 		refreshBuffer(pl0,pl1);
-		
+
 		refreshBuffer_window(pw0,pw1);
 
 		drawObjects();
@@ -233,7 +233,7 @@ int main()
 			spawnEnemy(arrP[n]);
 			enemyStart = endTime;
 		}
-		
+
 
 		if(elapsedTime > 17) //biar 60fps
 		{
@@ -244,7 +244,7 @@ int main()
 			usleep((17-elapsedTime)*1000);
 		}
 	}
-		
+
 	//tulis game over
 	printf("masuk\n");
 	refreshBuffer(pl0,pl1);
@@ -256,7 +256,7 @@ int main()
 	bufferDrawPlane(arrE, c, 12);
 	printf("masuk\n");
 	loadBuffer();
-	
+
 
 	return 0;
 }
@@ -266,6 +266,16 @@ void drawObjects()
 {
 	warna c = {255,255,255,255};
 	warna bound = {10,10,10,10};
+  warna green = {1, 255, 1, 255};
+	//gambar jalan
+	for(int i=0; i<2; i++)
+	{
+		if(road[i].status > 0)
+		{
+			bufferDrawPlaneSolidCitra(road[i].image, road[i].position, green, green, 4);
+      furnishRoad(&road[i]);
+		}
+	}
 
 	//gambar player
 	if(player.status > 0)
@@ -279,16 +289,7 @@ void drawObjects()
 		if(enemy[i].status > 0)
 		{
 			bufferDrawPlaneSolidCitra(enemy[i].image, enemy[i].position, c, bound, 19);
-		} 
-	}
-
-	//gambar jalan
-	for(int i=0; i<2; i++)
-	{
-		if(road[i].status > 0)
-		{
-			bufferDrawPlaneSolidCitra(road[i].image, road[i].position, c, bound, 19);
-		} 
+		}
 	}
 }
 
@@ -317,16 +318,16 @@ void *preUpdate(){
 						if (player.status==1) {
 							moveObject(p11, &player);
 						}
-						
+
 						break;
-						
+
 
 	                case 108:
 	                    // move down
 	                    if (player.status==1) {
 							moveObject(p22, &player);
 						}
-	                    
+
 	                    break;
 
 	                case 30:

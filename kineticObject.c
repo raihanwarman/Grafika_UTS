@@ -31,8 +31,8 @@ void checkCollision(int carLength){
 
 void checkRoadOutOfBound(){
   for(int i=0;i<2;i++){
-    if (road[i].position.x == -500) {
-      road[i].position.x = 1500;
+    if (road[i].position.x == -400) {
+      road[i].position.x = 1200;
     }
     // if(road[i].position.x + 70 <=0)
     // {
@@ -203,11 +203,14 @@ void furnishRoad(kineticObject *road) {
   titik s11, s12, s21, s22;
   warna yellow = {255, 255, 1, 255};
 
-  s11.x = road->position.x-400; s11.y = road->position.y-25;
+  s11.x = road->position.x-300; s11.y = road->position.y-25;
   s12.x = road->position.x-100; s12.y = road->position.y+25;
   s21.x = road->position.x+100; s21.y = road->position.y-25;
-  s22.x = road->position.x+400; s22.y = road->position.y+25;
+  s22.x = road->position.x+300; s22.y = road->position.y+25;
 
   fillRectangle(s11, s12, yellow);
   fillRectangle(s21, s22, yellow);
+
+  fillRectangleWindow(scaleDotInWindow(s11), scaleDotInWindow(s12), yellow);
+  fillRectangleWindow(scaleDotInWindow(s21), scaleDotInWindow(s22), yellow);
 }

@@ -408,3 +408,12 @@ int DotZone(titik p)
 		return 0;
 	}
 }
+
+void fillRectangleWindow(titik p1, titik p2, warna c) {
+  for (int i = p1.x; i < p2.x; i++) {
+    for (int j = p1.y; j < p2.y; j++) {
+      titik p = {i, j};
+      bufferDrawDot_window(p, c);
+    }
+  }
+}

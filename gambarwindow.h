@@ -66,4 +66,7 @@ titik getMidPoint(titik *citra, int sisi);
 int isOnWindow(titik p0, titik p1);
 
 int DotZone(titik p);
+
+void fillRectangleWindow(titik p1, titik p2, warna c);
+
 #endif //GAMBARWINDOW_H
