@@ -4,6 +4,7 @@
 #include "framebuffer_init.h"
 
 titik pCursor;
+const warna KEYING_COLOR = {255,255,255,255};
 extern Karakter A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,SP;
 
 extern void initKarakter() {
@@ -48,7 +49,9 @@ int getBmpHeight(FILE* streamIn) {
 
 
 Karakter setKarakter(Karakter* kar, char ch) {
+    (*kar).ch = ch;
 	if (ch==' ') return;
+
 	FILE* streamIn;
 	//char* inputFile = "alphabet-bmp/rgb.bmp";
 	char* inputFile = strdup("alphabet-bmp/X-100.bmp");
@@ -64,7 +67,6 @@ Karakter setKarakter(Karakter* kar, char ch) {
         exit(-1);
     }
 
-    (*kar).ch = ch;
     (*kar).width = getBmpWidth(streamIn);
     (*kar).height = getBmpHeight(streamIn);
 
@@ -78,10 +80,30 @@ Karakter setKarakter(Karakter* kar, char ch) {
             (*kar).pix[offset].g = getc(streamIn);
             (*kar).pix[offset].r = getc(streamIn);
             (*kar).pix[offset].a = getc(streamIn);
+            (*kar).pix[offset].a = 255;
 		}
 	}
     fclose(streamIn);
-	//printf("karakter %c set\n", ch);
+    removeBackground(kar);
+
+}
+
+void removeBackground(Karakter* kar) {
+	int i,j,offset;
+	for (i=(*kar).height-1; i>=0; i--){
+		for (j=0; j<(*kar).width; j++){
+            offset = ((*kar).width*i) + j;
+			if ((*kar).pix[offset].r == KEYING_COLOR.r
+				&& (*kar).pix[offset].g ==KEYING_COLOR.g
+				&& (*kar).pix[offset].b == KEYING_COLOR.b) {
+
+				(*kar).pix[offset].a = 0;
+				//printf("rem \n");
+			} else {
+				//printf("not rem \n");
+			} 
+		}
+	}
 }
 
 void drawKarakter(Karakter kar, titik p) {
@@ -90,7 +112,7 @@ void drawKarakter(Karakter kar, titik p) {
 	//printf("Drawing %c at %d,%d\n", kar.ch, p.x,p.y);
 	if (kar.ch==' ') return;
 
-	warna bg = {255,100,100,255};
+	warna bg = {100,100,255,255};
 
 	titik p0;
 	p0.x = p.x;
@@ -111,11 +133,19 @@ void drawKarakter(Karakter kar, titik p) {
 
             // offset = (kar.width*ci) + cj;
             offset = cj;
-			if(global_vinfo.bits_per_pixel == 32){
-				*(global_fbp + position) = kar.pix[offset].b;
-				*(global_fbp + position + 1) = kar.pix[offset].g;
-				*(global_fbp + position + 2) = kar.pix[offset].r;
-				*(global_fbp + position + 3) = kar.pix[offset].a;
+			if(global_vinfo.bits_per_pixel == 32 ){
+				if (kar.pix[offset].a==255){
+					*(global_fbp + position) = kar.pix[offset].b;
+					*(global_fbp + position + 1) = kar.pix[offset].g;
+					*(global_fbp + position + 2) = kar.pix[offset].r;
+					*(global_fbp + position + 3) = kar.pix[offset].a;
+				} 
+				// else {
+				// 	*(global_fbp + position) = 0;
+				// 	*(global_fbp + position + 1) = 0;
+				// 	*(global_fbp + position + 2) = 0;
+				// 	*(global_fbp + position + 3) = 0;
+				// }
 			}
 			cj++;
 			//printf("%d ",cj);
@@ -137,10 +167,14 @@ void drawTulisan(Karakter* ch, titik p, int nKarakter) {
 	pCursor.y = p.y;
 
 	for (i=0; i<nKarakter; i++) {
-		printf("drwawing %c - dimen: %dx%d at (%d,%d)\n", 
-			ch[i].ch,ch[i].width,ch[i].height, pCursor.x, pCursor.y);
-		drawKarakter(ch[i], pCursor);
-		pCursor.x += ch[i].width;
+		// printf("drwawing %c - dimen: %dx%d at (%d,%d)\n", 
+		// 	ch[i].ch,ch[i].width,ch[i].height, pCursor.x, pCursor.y);
+		if (ch[i].ch==' ') {
+			pCursor.x+=30;
+		} else {
+			drawKarakter(ch[i], pCursor);
+			pCursor.x += ch[i].width;
+		}
 	}
 }
 

@@ -7,7 +7,6 @@
 
 #define BPP 32
 
-
 typedef struct karakter_t {
 	char ch;
 	int width;
@@ -28,6 +27,9 @@ int getBmpHeight(FILE* streamIn);
 
 /* mengembalikan variabel karakter yang telah diinisialisasi */
 Karakter setKarakter(Karakter* kar, char ch);
+
+/* menghapus background karakter yang berwarna KEYING_COLOR */
+void removeBackground(Karakter* kar);
 
 /* menggambar karakter tunggal ke layar */
 void drawKarakter(Karakter karakter, titik p);
