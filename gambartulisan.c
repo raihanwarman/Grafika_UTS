@@ -174,8 +174,10 @@ void drawTulisan(Karakter* ch, titik p, int nKarakter) {
 		} else {
 			drawKarakter(ch[i], pCursor);
 			pCursor.x += ch[i].width;
+			usleep(200000);
 		}
 	}
+	usleep(500000);
 }
 
 void printStatus(Karakter kar) {

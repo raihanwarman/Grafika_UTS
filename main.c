@@ -1,5 +1,7 @@
 #include "gambarwindow.h"
 #include "kineticObject.h"
+#include "displayscreen.h"
+#include "gambartulisan.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -55,7 +57,9 @@ int main()
 
 //**setup-objek-game****************************************************************************
 	init_fb();
-  srand(time(NULL));
+	initKarakter();
+
+	srand(time(NULL));
 	warna c = {255,255,255,255};
 	warna bound = {10,10,10,10};
 	titik p1 = {400,430};
@@ -147,6 +151,13 @@ int main()
 	titik arrP[2];
 	arrP[0] = p3;
 	arrP[1] = p4;
+
+	displayWelcomeScreen(0);
+
+	titik pTulisanTabrax = {300, 300};
+	Karakter tabraxMe[] = {T,A,B,R,A,X,SP,M,E};
+	drawTulisan(tabraxMe, pTulisanTabrax, 9);
+
 	spawnPlayer();
 
   titik pEnemy = {600, 560};
